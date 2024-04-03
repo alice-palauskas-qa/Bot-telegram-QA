@@ -1,0 +1,85 @@
+#библиотеки, которые загружаем из вне
+import telebot
+TOKEN = 'Token'
+
+from telebot import types
+
+bot = telebot.TeleBot(TOKEN)
+
+@bot.message_handler(commands=['start'])
+def welcome(message):
+	sti = open('welcome.webp', 'rb')
+	bot.send_sticker(message.chat.id, sti)
+
+	#клавиатура
+	markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+	item1 = types.KeyboardButton("Validator JSON")
+	item2 = types.KeyboardButton("Fixer JSON")
+	item3 = types.KeyboardButton("Pairwise Online")
+	item4 = types.KeyboardButton("Временный Email")
+	item5 = types.KeyboardButton("Validator HTML")
+	item6 = types.KeyboardButton("Bug Magnet, плагин для автозаполнения полей")
+	item7 = types.KeyboardButton("Чит-листы")
+	item8 = types.KeyboardButton("Your viewport")
+	item9 = types.KeyboardButton("Плагин для Figma, превращаем сайт в Mockup")
+	item10 = types.KeyboardButton("PerfectPixel, проверяем верстку")
+	item11 = types.KeyboardButton("Fake Filler, плагин для автозаполнения полей")
+	item12 = types.KeyboardButton("Проверка битых ссылок")
+	item13 = types.KeyboardButton("Сразу видим ответы с бэка")
+	item14 = types.KeyboardButton("SEO Meta")
+	item15 = types.KeyboardButton("Изменения на уровне данных")
+	
+	markup.add(item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12, item13, item14, item15)
+
+	bot.send_message(message.chat.id, "Привет, {0.first_name}! Работая QA-инженером, я заметила, что часто юные тестировщики забывают о базовых расширениях и сервисах, которые могут им помочь. Так мне пришла идея создания этого бота. Надеюсь, он будет тебе полезен! ❤️".format(message.from_user, bot.get_me()),
+		parse_mode='html', reply_markup=markup)
+
+#назначаем действие для клавиатуры
+@bot.message_handler(content_types=['text'])
+def lalala(message):
+	if message.chat.type == 'private':
+		if message.text == 'Validator JSON':
+			bot.send_message(message.chat.id, 'https://jsonlint.com/')
+		elif message.text == 'Fixer JSON':
+			bot.send_message(message.chat.id, 'https://codebeautify.org/json-fixer')
+		elif message.text == 'Pairwise Online':
+			bot.send_message(message.chat.id, 'https://pairwise.yuuniworks.com/')
+		elif message.text == 'Временный Email':
+			bot.send_message(message.chat.id, 'https://temp-mail.org/ru/')
+		elif message.text == 'Validator HTML':
+			bot.send_message(message.chat.id, 'https://validator.w3.org/')
+		elif message.text == 'Bug Magnet, плагин для автозаполнения полей':
+			bot.send_message(message.chat.id, 'https://bugmagnet.org/')
+		elif message.text == 'Чит-листы':
+			bot.send_message(message.chat.id, 'https://drive.google.com/file/d/1maeBfNxtbihiyW02Zct_dihbqnHKSqHK/edit?pli=1')
+		elif message.text == 'Your viewport':
+			bot.send_message(message.chat.id, 'https://whatismyviewport.com/')
+		elif message.text == 'Плагин для Figma, превращаем сайт в Mockup':
+			bot.send_message(message.chat.id, 'https://www.figma.com/community/plugin/1159123024924461424/html-to-design')
+		elif message.text == 'PerfectPixel, проверяем верстку':
+			bot.send_message(message.chat.id, 'https://www.welldonecode.com/perfectpixel/')
+		elif message.text == 'Fake Filler, плагин для автозаполнения полей':
+			bot.send_message(message.chat.id, 'https://fakefiller.com/')
+		elif message.text == 'Проверка битых ссылок':
+			bot.send_message(message.chat.id, 'https://chrome.google.com/webstore/detail/check-my-links/ojkcdipcgfaekbeaelaapakgnjflfglf?hl=ru-RU).')
+		elif message.text == 'Сразу видим ответы с бэка':
+			bot.send_message(message.chat.id, 'https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en-US/')
+		elif message.text == 'SEO Meta':
+			bot.send_message(message.chat.id, 'https://chrome.google.com/webstore/detail/seo-meta-in-1-click/bjogjfinolnhfhkbipphpdlldadpnmhc/')
+		elif message.text == 'Изменения на уровне данных':
+			bot.send_message(message.chat.id, 'https://chrome.google.com/webstore/detail/datalayer-checker/ffljdddodmkedhkcjhpmdajhjdbkogke?hl=en-US')
+		else:
+			bot.send_message(message.chat.id, 'Не знаю, что ответить.🥺 Можешь написать мне в лс @alice.palauskas')
+
+
+bot.polling(none_stop=True)
+
+
+
+
+
+
+
+
+
+#https://core.telegram.org/bots/api#available-methods
